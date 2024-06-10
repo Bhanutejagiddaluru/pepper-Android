@@ -1,0 +1,55 @@
+topic: ~telugu()
+
+# Concepts
+concept:(hello) ^rand[hello hi hey "good morning" greetings]
+concept:(whats-your-name) ["your name" "what name"]
+concept:(how-are-you) ["how are you" "how are you doing"]
+concept:(feel-good) ^rand[well super great fine ok good]
+concept:(feel-bad) ^rand[bad "not well" "not good" "tired" confusion "lo unnanu" confusions]
+concept:(my-name) ^rand["my name is" "I am" "I'm"]
+concept:(bye) ^rand["bye" "bye bye" "good bye" "see you soon"]
+concept:(shake-hand) ["shake hand" "handshake" "hand" "shake"]
+concept:(bring) [bring get take]
+concept:(bringme) ["{can you} {please} ~bring {me} {some} {a}"]
+concept:(emi-ledu) ["sare bye" untanu velivastanu]
+concept:(saree) [saree cherallu cheralu kondam sorry sarees saturday size satisfy]
+concept:(gudivada) [gudivada gudivadda "lo unna" lo]
+concept:(department) [department depart]
+concept:(ai) [ai i ai "ai" yeah yay ]
+# Rules
+u:(~hello) ~hello, I am luna, Your at Kent state University ^nextProposal
+u:(~whats-your-name) ^rand[~my-name] Pepper
+u:(~how-are-you) ~feel-good  %prompt
+u:(~shake-hand) lets shake hands %shakehand
+u:(~my-name _*) Hi $1, nice to meet you $Name=$1
+u:(~bye) ^first["~bye $Name" ~bye]
+
+u:(~bringme _*) OK. Which kind of $1 would you like?
+  u1:(_*) Sure. I can bring you $1
+
+
+proposal: What would you like to know about today?
+  u1:(~feel-good) machedi. %feelgood
+  u1:(~feel-bad) avuna. %feelbad
+  u1:(~department) Any Specify department? ^nextProposal
+
+proposal: you want to to know?
+  u1:(~emi-ledu) unta mari bye.
+  u1:(~ai) oh!, Kent State University's AI department excels in research, collaboration, and innovative education in artificial intelligence. ^nextProposal
+
+
+proposal: Would like to know current semester professors?
+    u1:(yes) The Artificial Intelligence course is taught by Ms.Neha, $Drink=ai  and Advanced Artificial Intelligence course %ondisplay  is taught by Dr. Arvind Bansal, an excellent teacher who makes complex concepts easy to understand. ^nextProposal
+
+proposal: Would like to know more any professor?
+  u1:(Neha) The $Drink=neha Artificial Intelligence course is taught by Ms.Neha, %ondisplay an excellent teacher who makes complex concepts easy to understand. Additionally, she is pursuing her PhD under Dr. Arvind Bansal, further showcasing her exceptional talent. Neha is truly a great and superbly talented instructor.
+  u1:(bye) bye %feelgood
+  u1:(ok) fast ga velli konnu, %feelgood
+  u1:(beer) Sorry, I do not have beer ^stayInScope
+  u1:(wine) Do you prefer red or white? $Drink=wine
+    u2:(red) OK. Here is some red wine
+    u2:(white) OK. White wine is coming in a while
+  u1:([no nothing]) OK. No worries.
+
+
+

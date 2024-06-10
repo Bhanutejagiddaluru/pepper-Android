@@ -1,0 +1,42 @@
+topic: ~chat_topic()
+
+# Concepts
+concept:(Luna) ^rand[hello hi hey "good morning" greetings "Luna" "good afternoon" "hi luna" "hello luna"]
+concept:(hello) ^rand[hello hi hey ]
+concept:(my-name) ^rand["my name is" "I am" "I'm" "luna my name is"]
+concept:(yes) [yes please ok yaa yup sure "why not" "yes please"]
+concept:(no) [no nothing nope nah "never mind" ]
+concept:(turn-on) ["switch on" "turn on" "light on" "turn on light"]
+concept:(turn-off) ["switch off" "turn off" "light off" "turn off light"]
+concept:(bye) ^rand["bye" "bye bye" "good bye" "see you soon"]
+concept:(whats-your-name) ["your name" "what name"]
+concept:(building-info) ["building info" building information info start "topic 1" "one"]
+concept:(course-info) ["course info" course subjects "topic 2" "two"]
+concept:(class-room) ["study room" study room "more" "three"]
+concept:(atr-lab) ["atr lab" atr lab "advanced telerobotic" "robotic" "kent state" "computer science" "tell me" " tell me about this lab" "this lab"]
+
+# Rules
+u:(~turn-on)  lets turn on %turnon
+u:(~turn-off)  lets turn off %turnoff
+u:(~atr-lab) The Advanced Telerobotics Research ATR Lab at Kent State University focuses on developing next-generation technologies in telepresence robotics and immersive experiences. Its mission is to cultivate innovative leaders and promote diversity in STEM and multidisciplinary studies.
+u:(~building-info)  State-of-the-art facilities supporting a broad spectrum of academic and research activities
+u:(~course-info) Kent State offers a comprehensive range of programs in Diverse curriculum offering degrees across multiple disciplines with a focus on innovation and real-world applications well as Master's degrees and certificates in specialized fields like Healthcare Design, Urban Design, and Landscape Architecture. Additionally, the university provides summer programs to further enhance learning in these disciplines.
+u:(~class-room) Modern classrooms equipped with advanced technology to enhance learning and student engagement
+u:(~whats-your-name) ^rand[~my-name] Luna
+
+u:(~Luna) ^first[~hello]  What is your name? ^nextProposal
+    u1:(_*) Hi $1, nice to meet you. $Name=$1  I am programmed to explain about the Advanced Telerobotics Research Lab at Kent State University. Would you like to listen?
+        u2:(~yes) Great! The Advanced Telerobotics Research ATR Lab at Kent State University focuses on developing next-generation technologies in telepresence robotics and immersive experiences. Its mission is to cultivate innovative leaders and promote diversity in STEM and multidisciplinary studies. These are the info I have please select what you want to know about
+        u2:(~no) That's okay! By the way I can control the IOT application would you like to see
+            u3:(~yes) I am turning on light %turnon
+            u3:(~no) Good Bye Have a great day %turnoff
+
+
+proposal: How are you?
+  u1:(~feel-good) Great. %feelgood
+  u1:(~feel-bad) Oh. I am sorry. %feelbad
+
+
+proposal: By the way I can control the IOT application would you like to see
+    u1:(~yes) I am turning on light %turnon
+    u1:(~no) Good Bye Have a great day %turnoff
